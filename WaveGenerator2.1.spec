@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['WaveGenerator2.0.py'],
+    ['WaveGenerator2.1.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='WaveGenerator2.0',
+    name='WaveGenerator2.1',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

@@ -31,14 +31,12 @@ if USE_ROS:
         
         # Extract Total_Points
         total_points = 0
-        cost_elements = root.findall('.//bs:cost', namespace)
-        for cost in cost_elements:
+        cost_limits = root.findall('.//bs:costLimit', namespace)
+        for cost in cost_limits:
             if cost.get('name') == 'pts':
-                total_points = int(float(cost.get('value', 0)))
-                break  # Only need the first one (total)
-        
-        Total_Points = total_points  # Set OUTSIDE the loop
-        print(f"Total Points extracted: {Total_Points}")
+                Total_Points = int(float(cost.get('value', 0)))
+                print(f"Total Points extracted: {Total_Points}")
+                continue
 
         # Now continue extracting units
         for force in forces:
