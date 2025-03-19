@@ -101,8 +101,10 @@ def sort_into_groups(entries):
     base_wave_sum = wave_2_sum = wave_3_sum = 0
 
     half_total = Total_Points // 2
-    base_wave_options = [half_total, half_total + 100, half_total - 100]
-    base_wave_target = random.choice(base_wave_options)
+    range_size = .10*Total_Points  # You can adjust this value as needed
+    min_base = int(half_total - range_size)
+    max_base = int(half_total + range_size)
+    base_wave_target = random.randrange(min_base, max_base + 5, 5)
 
     remaining_entries = entries[:]
 
@@ -201,11 +203,11 @@ def sort_into_groups(entries):
         #print(base_wave_sum)
         #print(wave_2_sum)
         #print(wave_3_sum)
-        wave_2_3_average = wave_2_3_target / 2
-        individual_tolerance = int(wave_2_3_average * 0.10)
+        wave_2_3_average = wave_2_3_target /2
+        individual_tolerance = int(Total_Points * 0.10)
         #print(individual_tolerance)
-    if abs(wave_2_sum - wave_3_sum) > individual_tolerance:
-        return None  # Retry if imbalance exceeds 10%
+        if abs(wave_2_sum - wave_3_sum) > individual_tolerance:
+            return None  # Retry if imbalance exceeds 10%
     
 
     combined_waves_total = wave_2_sum + wave_3_sum
@@ -309,6 +311,7 @@ for idx, result in enumerate(all_valid_results):
             print(f"{wave} (Total: {total_wave_points} pts): {unit_list}")
     print()
     print(f"Missing Points: {result['Gap']} pts")
+    print()
     unplaced_units = set(name for name, _ in unit_entries) - set(name for wave in [result['The Base Wave'], result['Wave 2'], result['Wave 3']] for name, _ in wave)
     if unplaced_units:
         print("Unplaced Units:", ', '.join(unplaced_units))
